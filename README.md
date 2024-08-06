@@ -3,99 +3,120 @@
 
 ## Features
 
-- **User Registration**: Allows users to create an account with email and password.
-- **User Login**: Provides a JWT token upon successful login.
-- **URL Shortening**: Shortens URLs and associates them with user accounts.
-- **URL Retrieval**: Redirects users to the original URL based on the short code.
-- **JWT Authentication**: Secure endpoints with JSON Web Tokens (JWT).
+- **Shorten a URL**: Convert long URLs into short, easily shareable links.
+- **Retrieve Original URL**: Use short codes to retrieve the original URL.
+- **User Authentication**: Secure access with email and password, using JWT for authentication.
+- **Data Storage**: Store URL mappings and user data in a MySQL database.
 
-## Technologies Used
-
-- **Go**: Programming language used for backend development.
-- **Gin**: Web framework for building the API.
-- **GORM**: ORM library for interacting with the MySQL database.
-- **JWT**: For user authentication and session management.
-- **MySQL**: Database for storing user and URL data.
-
-## Installation
+## Getting Started
 
 ### Prerequisites
 
-- Go (1.16 or later)
+- Go (1.18+)
 - MySQL
 - Git
 
-### Setup
+### Installation
 
-1.  **Clone the repository:**
-    
-    ```bash
-    `git clone https://github.com/your-username/url-shortener-service.git`
-    ```
-2.  **Navigate to the project directory:**
-    
-    ```bash
-    `cd url-shortener-service`
-    ```
-3.  **Install dependencies:**
-    
-  ```  bash
-    `go mod tidy`
-```
-4.  **Configure the database:**
-    
-    - Ensure you have MySQL installed and running.
-    - Update the `dsn` in `main.go` with your MySQL database credentials.
-5.  **Run the application:**
-    
-    bash
-    `go run main.go`
-    
-    The server will start on `http://localhost:8080`.
-    
+1. **Clone the Repository**
 
-## API Endpoints
+ ```bash
+   git clone https://github.com/kareemy7/url-shortener-service.git
+   cd url-shortener-service
+ ```
 
-- **POST /register**: Register a new user.
-    
-    - Request Body: `{ "email": "user@example.com", "password": "password" }`
-    - Response: `{ "message": "Registration successful" }`
-- **POST /login**: Log in and get a JWT token.
-    
-    - Request Body: `{ "email": "user@example.com", "password": "password" }`
-    - Response: `{ "token": "your_jwt_token" }`
-- **POST /shorten**: Shorten a URL (requires JWT token in Authorization header).
-    
-    - Request Body: `{ "original_url": "http://example.com" }`
-    - Response: `{ "short_url": "http://localhost:8080/short_code" }`
-- **GET /**
-    
-    : Redirect to the original URL.
-    
-    - Example: `http://localhost:8080/abc123`
+2. **Setup Environment**
+
+   Create a `.env` file in the root directory and add the following variables:
+
+   ```plaintext
+   DSN=your-mysql-dsn
+   SECRET_KEY=your-secret-key
+   PORT=your-port
+   ```
+
+   Replace `your-mysql-dsn` with your MySQL connection string, `your-secret-key` with a strong secret key for JWT, and `your-port` with the port number you want the server to listen on.
+
+3. **Install Dependencies**
+
+   ```bash
+   go mod tidy
+   ```
+
+4. **Run the Application**
+
+   ```bash
+   go run main.go
+   ```
+
+   The server will start and listen on the specified port.
+
+### Usage
+
+- **Register a User**
+  
+  `POST /register`
+  
+  Request body:
+  ```json
+  {
+    "Email": "user@example.com",
+    "Password": "password123"
+  }
+  ```
+
+- **Login**
+
+  `POST /login`
+  
+  Request body:
+  ```json
+  {
+    "Email": "user@example.com",
+    "Password": "password123"
+  }
+  ```
+
+  Response will include a JWT token.
+
+- **Shorten a URL**
+
+  `POST /shorten` (Requires authentication)
+  
+  Request body:
+  ```json
+  {
+    "OriginalURL": "https://example.com"
+  }
+  ```
+
+- **Retrieve Original URL**
+
+  `GET /:shortCode`
+  
+  Example: `GET /abc123` will redirect to the original URL.
+
+- **Validate Authentication**
+
+  `GET /validate` (Requires authentication)
+  
+  Returns user information if the token is valid.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-1.  **Fork the repository**
-    
-2.  **Create a new branch:**
-    
-    ```bash
-    `git checkout -b feature-branch`
-    ```
-3.  **Make your changes**
-    
-4.  **Commit your changes:**
-    
- ```   bash
-    `git commit -m "Add new feature"`
- ```   
-5.  **Push to the branch:**
-    
-  ```  bash
-    `git push origin feature-branch`
- ```
-6.  **Create a pull request**
+If you want to contribute to this project, please fork the repository and submit a pull request. Ensure that your changes are well-documented and tested.
+
+## Acknowledgements
+
+- Go
+- Gin
+- Gorm
+- MySQL
+- JWT
     
 
 ## License

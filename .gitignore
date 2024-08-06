@@ -1,0 +1,35 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.out
+
+# Go build artifacts
+*.test
+*.log
+
+# Dependency directories
+vendor/
+Godeps/
+.godeps/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln
+*.sw?
+*.swo
+
+# Environment Files
+.env
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
